@@ -122,14 +122,9 @@ function searchByName(people) {
  * @param {Array} people        A collection of person objects.
  */
 function displayPeople(people) {
-    alert(
-        people
-            .map(function (person) {
-                return `${person.firstName} ${person.lastName}`;
-            })
-            .join("\n")
-    );
-}
+    alert(people.map(function(person) {
+                return `${person.firstName} ${person.lastName}` })
+            .join("\n"))}
 // End of displayPeople()
 
 /**
@@ -151,7 +146,6 @@ function displayPerson(person) {
     alert(personInfo);
 }
 // End of displayPerson()
-
 /**
  * This function's purpose is twofold:
  * First, to generate a prompt with the value passed in to the question parameter.
@@ -191,3 +185,27 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+/**
+ * 
+ * @param {Object} person 
+ * @param {Array} people 
+ * @returns {String} 
+ */
+function findPersonFamily(person,people) {
+    let result = people.filter(function(element) {
+        if (person.currentSpouse === element.id) return true })
+    return result }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
