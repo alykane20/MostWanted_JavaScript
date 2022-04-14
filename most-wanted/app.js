@@ -85,6 +85,10 @@ function mainMenu(person, people) {
             // Restart app() from the very beginning
             app(people);
             break;
+        case "test":
+        let findSpouse = findSpouse(person[0],people);
+        alert(findSpouse)
+        break;
         case "quit":
             // Stop application execution
             return;
@@ -191,14 +195,39 @@ function chars(input) {
  * @param {Array} people 
  * @returns {String} 
  */
-function findPersonFamily(person,people) {
+ function findSpouse(person, people){
     let result = people.filter(function(element) {
-        if (person.currentSpouse === element.id) {return true}
-        if (person.parents.includes(element.id)){return true}
-        if (person.parents === element.parents) return true})
-    return displayPeople(result)}
+    if (person.currentSpouse === element.id) return true})
+    return displayPeople(result)
+    }
+
+function findParents(person, people){
+    let result = people.filter(function(element){
+    if (person.parents.includes(element.id))return true})
+    return displayPeople(result)
+
+}
+
+function findSiblings(person, people){
+    let result = people.filter(function(element){
+    if (person.id != element.id && person.parents == element.parents)return true})
+    return displayPeople(result)
+    
+}
 
 
+    
+
+function findPersonFamily(person,people){ 
+    let spouse = (findSpouse(person, people))
+    let parents = (findParents(person, people))
+    let sibling = (findSiblings(person, people))
+
+    return spouse, parents, sibling
+   
+    
+
+}
 
 
 
