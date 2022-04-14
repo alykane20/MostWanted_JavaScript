@@ -123,7 +123,7 @@ function searchByName(people) {
  */
 function displayPeople(people) {
     alert(people.map(function(person) {
-                return `${person.firstName} ${person.lastName}` })
+                return ` ${person.firstName} ${person.lastName}` })
             .join("\n"))}
 // End of displayPeople()
 
@@ -196,9 +196,8 @@ function findPersonFamily(person,people) {
         if (person.currentSpouse === element.id) {return true}
         if (person.parents.includes(element.id)){return true}
         if (person.parents === element.parents) return true})
-        
-        return console.log(result)
-        }
+    return displayPeople(result)}
+
 
 
 
