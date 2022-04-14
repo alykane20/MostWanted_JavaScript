@@ -125,9 +125,9 @@ function searchByName(people) {
  * to the user in the form of an alert().
  * @param {Array} people        A collection of person objects.
  */
-function displayPeople(people) {
+function displayPeople(string, people) {
     alert(people.map(function(person) {
-                return ` ${person.firstName} ${person.lastName}` })
+                return ` ${string}:\n ${person.firstName} ${person.lastName}` })
             .join("\n"))}
 // End of displayPeople()
 
@@ -193,27 +193,23 @@ function chars(input) {
  * 
  * @param {Object} person 
  * @param {Array} people 
- * @returns {String} 
  */
  function findSpouse(person, people){
     let result = people.filter(function(element) {
     if (person.currentSpouse === element.id) return true})
-    return displayPeople(result)
+    return result
     }
 
 function findParents(person, people){
     let result = people.filter(function(element){
-    if (person.parents.includes(element.id))return true})
-    return displayPeople(result)
+    if (person.parents.includes(element.id)) return true})
+return result }
 
-}
-
-function findSiblings(person, people){
+function findSiblings(person,people){
+    let parent = findParents(person,people) 
     let result = people.filter(function(element){
-    if (person.id != element.id && person.parents == element.parents)return true})
-    return displayPeople(result)
-    
-}
+        if (person.id !== element.id && parent[0].id === element.parents[0]) return true })   
+return result }
 
 
     
@@ -221,12 +217,10 @@ function findSiblings(person, people){
 function findPersonFamily(person,people){ 
     let spouse = (findSpouse(person, people))
     let parents = (findParents(person, people))
-    let sibling = (findSiblings(person, people))
-
-    return spouse, parents, sibling
-   
-    
-
+    let sibling = (findSiblings(person,people))
+    displayPeople("Spouse",spouse)
+    displayPeople("Parents",parents)
+    displayPeople("Siblings",sibling)
 }
 
 
