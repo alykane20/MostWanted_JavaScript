@@ -73,7 +73,7 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            alert(personFamily);
+            // alert(personFamily);
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
@@ -215,12 +215,18 @@ return result }
     
 
 function findPersonFamily(person,people){ 
+    totalFamily = ""
     let spouse = (findSpouse(person, people))
     let parents = (findParents(person, people))
     let sibling = (findSiblings(person,people))
-    displayPeople("Spouse",spouse)
+    if (spouse.length == 0){
+        totalFamily += ('No spouse')
+    }
+    else (displayPeople("Spouse",spouse))
     displayPeople("Parents",parents)
     displayPeople("Siblings",sibling)
+    
+ 
 }
 
 
