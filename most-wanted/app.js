@@ -73,7 +73,7 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            // alert(personFamily);
+            alert(personFamily);
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
@@ -125,10 +125,10 @@ function searchByName(people) {
  * to the user in the form of an alert().
  * @param {Array} people        A collection of person objects.
  */
-function displayPeople(string, people) {
-    alert(people.map(function(person) {
-                return ` ${string}:\n ${person.firstName} ${person.lastName}` })
-            .join("\n"))}
+function displayPeople(people) {
+    people.map(function(person) {
+        return `${person.firstName} ${person.lastName}`})
+    .join("\n")}
 // End of displayPeople()
 
 /**
@@ -197,50 +197,44 @@ function chars(input) {
  function findSpouse(person, people){
     let result = people.filter(function(element) {
     if (person.currentSpouse === element.id) return true})
-    return result
-    }
+    let spouse = result.map(function(element){
+        return `${element.firstName} ${element.lastName}`})
+    if ( spouse.length == 0 ) {
+        return "No spouse in the system\n"}}
+
+
 
 function findParents(person, people){
     let result = people.filter(function(element){
     if (person.parents.includes(element.id)) return true})
-return result }
+    let parent = result.map(function(element){
+        return `${element.firstName} ${element.lastName}`})
+    if ( parent.length == 0 ) {
+        return "No parents in the system\n"}}
+
 
 function findSiblings(person,people){
-    let parent = findParents(person,people) 
-    let result = people.filter(function(element){
-        if (person.id !== element.id && parent[0].id === element.parents[0]) return true })   
-return result }
+    let parent = findParents(person,people)
+    if (parent !== "No parents in the system\n" ) {
+        let sibling = parent.map(function(element){
+            if (people.includes(parent[0] || parent[1] )){  
+                return `${element.firstName} ${element.lastName}`}})
+        return sibling}
+        if (sibling.length == 0 ) {
+            return "No siblings in the system" }
+    else {
+        return "No siblings in the system"
+    }}
 
 
     
 
 function findPersonFamily(person,people){ 
-    totalFamily = ""
-    let spouse = (findSpouse(person, people))
-    let parents = (findParents(person, people))
-    let sibling = (findSiblings(person,people))
-    if (spouse.length == 0){
-        totalFamily += ('No spouse')
-    }
-    else (displayPeople("Spouse",spouse))
-    displayPeople("Parents",parents)
-    displayPeople("Siblings",sibling)
-    
- 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    let totalFamily = " ";
+    let spouse = findSpouse(person,people);
+    totalFamily += spouse;
+    let parent = findParents(person,people);
+    totalFamily += parent;
+    let sibling = findSiblings(person,people);
+    totalFamily += sibling;
+    return totalFamily }
