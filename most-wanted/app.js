@@ -85,10 +85,6 @@ function mainMenu(person, people) {
             // Restart app() from the very beginning
             app(people);
             break;
-        case "test":
-        let findSpouse = findSpouse(person[0],people);
-        alert(findSpouse)
-        break;
         case "quit":
             // Stop application execution
             return;
@@ -205,21 +201,25 @@ function chars(input) {
 
 
 function findParents(person, people){
-    let result = people.filter(function(element){
-    if (person.parents.includes(element.id)) return true})
+    let result = people.filter(function(element){  
+        if (person.parents.includes(element.id)) return true})
     let parent = result.map(function(element){
         return `${element.firstName} ${element.lastName}`})
-    if ( parent.length == 0 ) {
-        return "No parents in the system\n"}}
+        return parent}
+    // 
 
 
 function findSiblings(person,people){
     let parent = findParents(person,people)
-    if (parent !== "No parents in the system\n" ) {
-        let sibling = parent.map(function(element){
-            if (people.includes(parent[0] || parent[1] )){  
-                return `${element.firstName} ${element.lastName}`}})
-        return sibling}
+    if( parent.length == 0 ) {
+    return "No parents in the system\n"}
+    if (parent !== "No parents in the system\n") {
+        let result = people.filter(function(element){
+            if (element.parents.includes(parent[0] || element.parents.includes(parent[1]) return true})
+                
+        let sibling = result.map(function(element){
+               return `${element.firstName} ${element.lastName}`})
+                return sibling}}
         if (sibling.length == 0 ) {
             return "No siblings in the system" }
     else {
