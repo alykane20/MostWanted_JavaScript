@@ -249,3 +249,26 @@ function findPersonFamily(person, people) {
   totalFamily += `Siblings:\n${sibling}\n`;
   return totalFamily;
 }
+
+function findKids(person, people) {
+  let result = people.filter(function (element) {
+    if (element.parents.includes(person.id)) return true;
+  });
+  if (result.length == 0) {
+    return "No descendants in the system";
+  } else {
+    let kid = result.map(function (element) {
+      return `${element.firstName} ${element.lastName}`;
+    });
+    return kid;
+  }
+}
+
+function findPersonDescendants(person, people) {
+  let kids = " ";
+  let lookForDescendant = findKids(person, people);
+  kids += `Descendants found:\n${lookForDescendant}\n`;
+  return kids;
+}
+
+// function searchByTraits(people)
