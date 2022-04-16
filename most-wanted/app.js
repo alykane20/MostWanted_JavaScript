@@ -194,20 +194,18 @@ function chars(input) {
  * @param {Array} people
  */
 function findSpouse(person, people) {
-    let result = people.filter(function (element) {
+  let result = people.filter(function (element) {
     if (person.currentSpouse === element.id) return true;
-    })
-    if (result.length == 0) {
-        return "No spouse in the system"
-    }
-    else {
-        let spouse = result.map(function (element) {
-        return `${element.firstName} ${element.lastName}\n`;
-    })
-    return spouse}}
-
-
-
+  });
+  if (result.length == 0) {
+    return "No spouse in the system";
+  } else {
+    let spouse = result.map(function (element) {
+      return `${element.firstName} ${element.lastName}\n`;
+    });
+    return spouse;
+  }
+}
 
 function findParents(person, people) {
   let result = people.filter(function (element) {
@@ -216,36 +214,47 @@ function findParents(person, people) {
   if (result.length == 0) {
     return "No parents in the system";
   }
-  else {
-    let parentNames = result.map(function (element) {
-    return `${element.firstName} ${element.lastName}`;
-  })
-  return parentNames}}
+  return result;
+}
 
 function findSiblings(person, people) {
   let parent = findParents(person, people);
 
   if (parent !== "No parents in the system") {
     let result = people.filter(function (element) {
-      if (element.parents.includes(parent[0].id))
-        return true })
-    return result}
-if (parent == "No parents in the system") {
+      if (element.id !== person.id && element.parents.includes(parent[0].id))
+        return true;
+    });
+    if (result.length == 0) {
       return "No siblings in the system";
+    } else {
+      let siblingName = result.map(function (element) {
+        return `${element.firstName} ${element.lastName}`;
+      });
+      return siblingName;
+    }
   }
-else {
-    let parentName = result.map(function(element) {
-        return `${element.firstName} ${element.lastName}`
-    })
-}}
+  if (parent === "No parents in the system") {
+    return "No siblings in the system";
+  }
+}
 
 function findPersonFamily(person, people) {
   let totalFamily = " ";
-  let spouse = findSpouse(person,people);
+
+  let spouse = findSpouse(person, people);
   totalFamily += `Spouse:\n${spouse}\n`;
-  let parents = findParents(person,people);
-  totalFamily += `Parents:\n${parents}\n`;
-  let siblings = findSiblings(person,people);
+
+  let parents = findParents(person, people);
+  if (parents !== "No parents in the system") {
+    let parentName = parents.map(function (element) {
+      return `${element.firstName} ${element.lastName}`;
+    });
+    totalFamily += `Parents:\n${parentName}\n`;
+  } else {
+    totalFamily += `Parents:\n${parents}\n`;
+  }
+  let siblings = findSiblings(person, people);
   totalFamily += `Siblings:\n${siblings}`;
-  return totalFamily
+  return totalFamily;
 }
