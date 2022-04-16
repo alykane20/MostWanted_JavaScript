@@ -212,49 +212,40 @@ function findParents(person, people) {
     if (person.parents.includes(element.id)) return true;
   });
   if (result.length == 0) {
-    return "No parents in the system";
+    return "No parents in the system\n";
+  } else {
+    let parent = result.map(function (element) {
+      return `${element.firstName} ${element.lastName}`;
+    });
+    return parent;
   }
-  return result;
 }
-
 function findSiblings(person, people) {
-  let parent = findParents(person, people);
-
-  if (parent !== "No parents in the system") {
+  if (person.parents.length > 0) {
     let result = people.filter(function (element) {
-      if (element.id !== person.id && element.parents.includes(parent[0].id))
+      if (person.id !== element.id && person.parents[0] === element.parents[0])
         return true;
     });
     if (result.length == 0) {
-      return "No siblings in the system";
+      return "No siblings in the system\n";
     } else {
-      let siblingName = result.map(function (element) {
+      let sibling = result.map(function (element) {
         return `${element.firstName} ${element.lastName}`;
       });
-      return siblingName;
+      return sibling;
     }
-  }
-  if (parent === "No parents in the system") {
-    return "No siblings in the system";
+  } else {
+    return "No siblings in the system\n";
   }
 }
 
 function findPersonFamily(person, people) {
   let totalFamily = " ";
-
   let spouse = findSpouse(person, people);
   totalFamily += `Spouse:\n${spouse}\n`;
-
-  let parents = findParents(person, people);
-  if (parents !== "No parents in the system") {
-    let parentName = parents.map(function (element) {
-      return `${element.firstName} ${element.lastName}`;
-    });
-    totalFamily += `Parents:\n${parentName}\n`;
-  } else {
-    totalFamily += `Parents:\n${parents}\n`;
-  }
-  let siblings = findSiblings(person, people);
-  totalFamily += `Siblings:\n${siblings}`;
+  let parent = findParents(person, people);
+  totalFamily += `Parents:\n${parent}\n`;
+  let sibling = findSiblings(person, people);
+  totalFamily += `Siblings:\n${sibling}\n`;
   return totalFamily;
 }
