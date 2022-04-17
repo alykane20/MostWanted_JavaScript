@@ -257,13 +257,28 @@ function findKids(person, people) {
   });
   if (result.length == 0) {
     return "No descendants in the system";
-  } else {
-    let kids = result.map(function (element) {
-      return `${element.firstName} ${element.lastName}\n`;
+  } else if (result.length > 0) {
+    // COMPLETED GRAND KIDS CHECK
+    let grand = people.filter(function (element) {
+      if (element.parents.includes(forLoop(element,result))) return true;
     });
-    return kids;
+    if (grand.length > 0) {
+      let grandKid = grand.map(function (element) {
+        return`${element.firstName} ${element.lastName}`;
+      });
+      let kids = result.map(function(element){
+        return `${element.firstName} ${element.lastName}`
+      })
+    return `${kids}\n${grandKid}`
+    } else {
+      let kids = result.map(function (element) {
+        return `${element.firstName} ${element.lastName}`;
+      });
+      return kids;
+    }
   }
 }
+
 
 function findPersonDescendants(person, people) {
   let kids = " ";
@@ -272,4 +287,12 @@ function findPersonDescendants(person, people) {
   return kids;
 }
 
+function forLoop(person, array) {
+  for (let index = 0; index < array.length; index++) {
+    array[index].id;
+    if (person.parents.includes(array[index].id)) {
+      return array[index].id;
+    }
+  }
+}
 // function searchByTraits(people)
