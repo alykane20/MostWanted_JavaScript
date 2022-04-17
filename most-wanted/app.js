@@ -251,16 +251,17 @@ function findPersonFamily(person, people) {
 }
 
 function findKids(person, people) {
+  // CHECKING FOR CHILDREN COMPLETED AND CHECKED
   let result = people.filter(function (element) {
     if (element.parents.includes(person.id)) return true;
   });
   if (result.length == 0) {
     return "No descendants in the system";
   } else {
-    let kid = result.map(function (element) {
-      return `${element.firstName} ${element.lastName}`;
+    let kids = result.map(function (element) {
+      return `${element.firstName} ${element.lastName}\n`;
     });
-    return kid;
+    return kids;
   }
 }
 
