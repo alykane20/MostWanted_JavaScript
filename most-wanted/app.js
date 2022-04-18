@@ -183,6 +183,7 @@ function yesNo(input) {
  * @returns {Boolean}           Default validation -- no logic yet.
  */
 function chars(input) {
+
   return true; // Default validation only
 }
 // End of chars()
@@ -376,15 +377,24 @@ function searchByColor(people, colorChoice) {
   }
 }
 function searchByTraits(people) {
-  let userChoice = prompt(
-    "Enter 1 to check by a single trait or Enter 2 to check multiple traits "
-  );
+let userChoice = prompt(
+        "Enter 1 to check by a single trait or Enter 2 to check multiple traits "
+      );
+  while (userChoice !== "1" && userChoice !== "2") {
+    userChoice = prompt(
+        "Enter 1 to check by a single trait or Enter 2 to check multiple traits "
+      )
+   
+  }
   if (userChoice == "1") {
     let userTraitChoice = prompt(
       "Do you want to search by gender, DOB, height, weight, eyecolor:"
     ).toLowerCase();
     if (userTraitChoice == "gender") {
-      let question = prompt("Enter the gender you would like to search");
+      let question = prompt("Enter the gender you would like to search")
+      while(question !== "male" && question !== "female"){
+        question = prompt("Enter the gender you would like to search") 
+      };
       let genderSearch = searchByGender(people, question);
       return genderSearch;
     } else if (userTraitChoice == "dob") {
@@ -411,6 +421,7 @@ function searchByTraits(people) {
     let multipleTraits = prompt(
       "Please enter up to 5 traits to search separated by a comma: Example: gender,dob,height,weight,eyecolor"
     ).split(/[,]+/);
+    
 
     for (let x = 0; x < multipleTraits.length; x++) {
       if (multipleTraits[x] == "gender") {
