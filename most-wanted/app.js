@@ -295,4 +295,28 @@ function forLoop(person, array) {
     }
   }
 }
-// function searchByTraits(people)
+
+
+function searchByGender(people, trait){
+if(trait.gender ==  )
+
+}
+
+
+
+function searchByTraits(people){
+let userTraitChoice = prompt("Do you want to search by:")
+
+let result= people.filter(function (element) {
+    if (element.gender == trait){ return true}
+    else if(element.eyeColor == trait){return true}
+    else if(element.dob == trait) {return true}
+    else if(element.height == trait) {return true}
+    else if (element.weight == trait) {return true}
+
+  })
+if (result.length >0){ 
+let finalResult = result.map(function (element) {
+return `${element.firstName} ${element.lastName}\n`})
+alert(finalResult)}
+}
