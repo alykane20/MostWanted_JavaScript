@@ -449,6 +449,10 @@ function searchByTraits(people) {
         people = searchByColor(people, question);
       }
     }
-    return people;
+    if (people !== "No matches in the system.") {
+      return people;
+    } else {
+      alert("No matches in the system");
+    }
   }
 }
