@@ -400,9 +400,18 @@ function searchByTraits(people) {
     }
   }
 
-}
 
-//   if (result.length > 0) {
+let multilpeTraits = prompt("Please enter up to 5 traits to search separated by a comma: Example - gender: male, DOB: 01/01/1999, height: 70, weight: 150, eye color: brown").split(/[:,]+/)
+console.log(multilpeTraits)
+
+if (multilpeTraits.length == 2){
+    let result = people.filter(function(element){
+        if(element.gender == multilpeTraits[1] || element.dob == multilpeTraits[1] || element.height == multilpeTraits[1] || element.weight ==]) return true
+    })
+    return result
+}}
+
+// if (result.length > 0) {
 //   let result = people.filter(function (element) {
 //     if (element.gender == trait) {
 //       return true;
@@ -421,4 +430,4 @@ function searchByTraits(people) {
 //     });
 //     alert(finalResult);
 //   }
-// }
+
