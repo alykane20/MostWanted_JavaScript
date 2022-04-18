@@ -32,7 +32,6 @@ function app(people) {
       //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
       //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
       searchResults = searchByTraits(people);
-      alert(searchResults);
       break;
     default:
       // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -40,6 +39,7 @@ function app(people) {
       break;
   }
   // Calls the mainMenu() only AFTER we find the SINGLE PERSON
+
   mainMenu(searchResults, people);
 }
 // End of app()
@@ -296,8 +296,7 @@ function forLoop(person, array) {
   }
 }
 
-function searchByGender(people) {
-  let trait = prompt("What gender would you like to search for: ");
+function searchByGender(people, trait) {
   let gender = people.filter(function (element) {
     if (element.gender == trait) {
       return true;
@@ -307,11 +306,11 @@ function searchByGender(people) {
     let names = gender.map(function (element) {
       return `${element.firstName} ${element.lastName}\n`;
     });
-    return names;
+    alert(names);
+    return gender;
   }
 }
-function searchBD(people) {
-  let date = prompt("Provide a birthdate. Example format: 01/01/2001");
+function searchBD(people, date) {
   let search = people.filter(function (element) {
     if (element.dob == date) {
       return true;
@@ -321,13 +320,14 @@ function searchBD(people) {
     let names = search.map(function (element) {
       return `${element.firstName} ${element.lastName}\n`;
     });
-    return names;
+    alert(names);
+    return search;
   } else {
-    return "No matches in the system";
+    alert("No matches in the system");
+    return search;
   }
 }
-function searchHeight(people) {
-  let height = prompt("Enter in inches a height you would like to search");
+function searchHeight(people, height) {
   let result = people.filter(function (element) {
     if (element.height == height) {
       return true;
@@ -337,13 +337,13 @@ function searchHeight(people) {
     let names = result.map(function (element) {
       return `${element.firstName} ${element.lastName}\n`;
     });
-    return names;
+    alert(names);
+    return result;
   } else {
     return "No matches in the system.";
   }
 }
-function searchByWeight(people) {
-  let weight = prompt("Enter a weight you would like to search");
+function searchByWeight(people, weight) {
   let result = people.filter(function (element) {
     if (element.weight == weight) {
       return true;
@@ -353,13 +353,13 @@ function searchByWeight(people) {
     let names = result.map(function (element) {
       return `${element.firstName} ${element.lastName}\n`;
     });
-    return names;
+    alert(names);
+    return result;
   } else {
     return "No matches in the system.";
   }
 }
-function searchByColor(people) {
-  let colorChoice = prompt("Enter an eye color you would like to search");
+function searchByColor(people, colorChoice) {
   let result = people.filter(function (element) {
     if (element.eyeColor == colorChoice) {
       return true;
@@ -369,7 +369,8 @@ function searchByColor(people) {
     let names = result.map(function (element) {
       return `${element.firstName} ${element.lastName}\n`;
     });
-    return names;
+    alert(names);
+    return result;
   } else {
     return "No matches in the system.";
   }
@@ -383,51 +384,52 @@ function searchByTraits(people) {
       "Do you want to search by gender, DOB, height, weight, eyecolor:"
     ).toLowerCase();
     if (userTraitChoice == "gender") {
-      let genderSearch = searchByGender(people);
+      let question = prompt("Enter the gender you would like to search");
+      let genderSearch = searchByGender(people, question);
       return genderSearch;
     } else if (userTraitChoice == "dob") {
-      let birthdate = searchBD(people);
+      let question = prompt("Enter the date you would like to search");
+      let birthdate = searchBD(people, question);
       return birthdate;
     } else if (userTraitChoice == "height") {
-      let heightNum = searchHeight(people);
+      let question = prompt(
+        "Enter the height in inches you would like to search"
+      );
+      let heightNum = searchHeight(people, question);
       return heightNum;
     } else if (userTraitChoice == "weight") {
-      let weight = searchByWeight(people);
+      let question = prompt("Enter the weight you would like to search");
+      let weight = searchByWeight(people, question);
       return weight;
     } else if (userTraitChoice == "eyecolor") {
-      let color = searchByColor(people);
+      let question = prompt("Enter the eye color you would like to search");
+      let color = searchByColor(people, question);
       return color;
     }
   }
+  if (userChoice == "2") {
+    let multipleTraits = prompt(
+      "Please enter up to 5 traits to search separated by a comma: Example: gender,dob,height,weight,eyecolor"
+    ).split(/[,]+/);
 
-
-let multilpeTraits = prompt("Please enter up to 5 traits to search separated by a comma: Example - gender: male, DOB: 01/01/1999, height: 70, weight: 150, eye color: brown").split(/[:,]+/)
-console.log(multilpeTraits)
-
-if (multilpeTraits.length == 2){
-    let result = people.filter(function(element){
-        if(element.gender == multilpeTraits[1] || element.dob == multilpeTraits[1] || element.height == multilpeTraits[1] || element.weight ==]) return true
-    })
-    return result
-}}
-
-// if (result.length > 0) {
-//   let result = people.filter(function (element) {
-//     if (element.gender == trait) {
-//       return true;
-//     } else if (element.eyeColor == trait) {
-//       return true;
-//     } else if (element.dob == trait) {
-//       return true;
-//     } else if (element.height == trait) {
-//       return true;
-//     } else if (element.weight == trait) {
-//       return true;
-//     }
-//   });
-//     let finalResult = result.map(function (element) {
-//       return `${element.firstName} ${element.lastName}\n`;
-//     });
-//     alert(finalResult);
-//   }
-
+    for (let x = 0; x < multipleTraits.length; x++) {
+      if (multipleTraits[x] == "gender") {
+        let question = prompt("Enter a gender: ");
+        people = searchByGender(people, question);
+      } else if (multipleTraits[x] == "dob") {
+        let question = prompt("Enter a date. Format: m/d/yyyy: ");
+        people = searchBD(people, question);
+      } else if (multipleTraits[x] == "height") {
+        let question = prompt("Enter a height in inches:");
+        people = searchHeight(people, question);
+      } else if (multipleTraits[x] == "weight") {
+        let question = prompt("Enter a weight: ");
+        people = searchByWeight(people, question);
+      } else if (multipleTraits[x] == "eyecolor") {
+        let question = prompt("Enter an eye color: ");
+        people = searchByColor(people, question);
+      }
+    }
+    return people;
+  }
+}
